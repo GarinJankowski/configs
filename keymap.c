@@ -10,15 +10,19 @@ const uint16_t PROGMEM combo_MEDIA[] = {LT(2,KC_SPC), LT(1,KC_BSPC), COMBO_END};
 const uint16_t PROGMEM combo_FUNCTION[] = {LT(3,KC_ESC), LT(4,KC_ENT), COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(combo_Q, KC_Q),
-    COMBO(combo_Z, KC_Z),
-    COMBO(combo_MEDIA, MO(5)),
+    COMBO(combo_Q, MT(MOD_LSFT | MOD_LGUI, KC_Q)),
+    COMBO(combo_Z, MT(MOD_LSFT | MOD_LGUI, KC_Z)),
+    COMBO(combo_MEDIA, LT(5,KC_CAPS)),
     COMBO(combo_FUNCTION, MO(6)),
 };
 
 // Overrides, most of these just remove shift functionality
-const key_override_t override_TAB = ko_make_basic(MOD_MASK_SHIFT, LT(1,KC_SPC), LT(1,KC_TAB));
-const key_override_t override_DEL = ko_make_basic(MOD_MASK_SHIFT, LT(2,KC_BSPC), LT(2,KC_DEL));
+const key_override_t override_CSTAB = ko_make_basic(MOD_MASK_CS, LT(1,KC_BSPC), LCTL(LSFT(KC_TAB)));
+const key_override_t override_SGTAB = ko_make_basic(MOD_MASK_SG, LT(1,KC_BSPC), LGUI(LSFT(KC_TAB)));
+const key_override_t override_SATAB = ko_make_basic(MOD_MASK_SA, LT(1,KC_BSPC), LALT(LSFT(KC_TAB)));
+
+const key_override_t override_TAB = ko_make_basic(MOD_MASK_SHIFT, LT(2,KC_SPC), LT(2,KC_TAB));
+const key_override_t override_DEL = ko_make_basic(MOD_MASK_SHIFT, LT(1,KC_BSPC), LT(1,KC_DEL));
 
 const key_override_t override_0 = ko_make_basic(MOD_MASK_SHIFT, LALT_T(KC_0), LALT_T(KC_0));
 const key_override_t override_1 = ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_1);
@@ -45,7 +49,8 @@ const key_override_t override_RCTL_DOT = ko_make_basic(MOD_MASK_SHIFT, RCTL_T(KC
 const key_override_t override_SLSH = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_SLSH);
 
 const key_override_t *key_overrides[] = {
-    &override_TAB, &override_DEL,
+    &override_CSTAB, &override_SGTAB, &override_SATAB,
+    &override_TAB, &override_DEL, 
     &override_0, &override_1, &override_2, &override_3, &override_4, &override_5, &override_6, &override_7, &override_8, &override_9, 
     &override_MINS,
     &override_EQL,
@@ -73,7 +78,7 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
 
 // Macros
 enum custom_keycodes {
-    MKC_PASTE,
+    MKC_PASTE = SAFE_RANGE,
     MKC_COPY,
     MKC_CUT,
     MKC_UNDO,
@@ -207,9 +212,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // Editing
     [4] = LAYOUT_split_3x5_3(
-        KC_NO,            KC_NO,            KC_NO,            KC_NO,            KC_NO,KC_NO,    MKC_PASTE,            MKC_COPY,            MKC_CUT,            KC_NO,
+        KC_NO,            MKC_CUT,            MKC_COPY,            MKC_PASTE,            KC_NO,KC_NO,    MKC_PASTE,            MKC_COPY,            MKC_CUT,            KC_NO,
         KC_LALT,          KC_LGUI,          KC_LSFT,          KC_LCTL,          KC_NO,KC_NO,    KC_LEFT,              KC_DOWN,          KC_UP,          KC_RIGHT,
-        KC_NO,            KC_NO,            KC_NO,            KC_NO,            KC_NO,KC_NO,    MKC_UNDO,            MKC_REDO,         KC_NO,          KC_NO,
+        KC_NO,            KC_NO,            MKC_REDO,            MKC_UNDO,            KC_NO,KC_NO,    MKC_UNDO,            MKC_REDO,         KC_NO,          KC_NO,
                                           LT(3,KC_ESC),    LT(2,KC_SPC),    KC_NO,KC_NO,    LT(1,KC_BSPC),   LT(4,KC_ENT)
     ),
 
