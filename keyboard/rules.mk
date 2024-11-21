@@ -11,3 +11,6 @@ DEFERRED_EXEC_ENABLE = yes
 SRC += encoder.c
 SRC += ghosting.c
 SRC += matrix.c
+SRC += features/achordion.c
+
+CONSOLE_ENABLE = no
