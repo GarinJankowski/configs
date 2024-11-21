@@ -216,6 +216,10 @@ void matrix_scan_user(void) {
     achordion_task();
 }
 
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+    return 400;
+}
+
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
