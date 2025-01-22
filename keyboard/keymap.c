@@ -30,27 +30,47 @@
 #define MOD_6 LCTL_T(KC_6)
 
 #define MOD_DOT RCTL_T(KC_DOT)
-                                
+#define MOD_COMM RSFT_T(KC_COMM)
+
+// game
+#define GM_ESC LT(8,KC_ESC)
+#define RL_ESC LT(10,KC_ESC)
+#define RL_SPC LT(11,KC_SPC)
+#define RL_BSPC LT(12,KC_BSPC)
+#define RL_ENT LT(13,KC_ENT)
 
 // Combos
 const uint16_t PROGMEM combo_Q[] = {MOD_E, MOD_I, COMBO_END};
 const uint16_t PROGMEM combo_Z[] = {MOD_T, MOD_S, COMBO_END};
+const uint16_t PROGMEM combo_REP[] = {KC_R, KC_M, COMBO_END};
+const uint16_t PROGMEM combo_CW[] = {MOD_A, MOD_H, COMBO_END};
 const uint16_t PROGMEM combo_MEDIA[] = {LT_SPC, LT_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_FUNCTION[] = {LT_ESC, LT_ENT, COMBO_END};
 
+const uint16_t PROGMEM combo_GAMING[] = {KC_Y, KC_U, KC_L, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_GAMINGBACK[] = {KC_Q, KC_E, KC_L, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_ROGUELIKE[] = {KC_X, KC_K, KC_R, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_ROGUELIKEBACK[] = {KC_1, KC_3, KC_B, KC_DOT, COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(combo_Q, MT(MOD_LSFT | MOD_LGUI, KC_Q)),
-    COMBO(combo_Z, MT(MOD_LSFT | MOD_LGUI, KC_Z)),
+    COMBO(combo_Z, MT(MOD_RSFT | MOD_RGUI, KC_Z)),
+    COMBO(combo_REP, QK_REP),
+    COMBO(combo_CW, CW_TOGG),
     COMBO(combo_MEDIA, LT(5,KC_CAPS)),
     COMBO(combo_FUNCTION, MO(6)),
+    COMBO(combo_GAMING, TG(7)),
+    COMBO(combo_GAMINGBACK, TG(7)),
+    COMBO(combo_ROGUELIKE, TG(9)),
+    COMBO(combo_ROGUELIKEBACK, TG(9)),
 };
 
 // Overrides, most of these just remove shift functionality
-const key_override_t override_CSTAB = ko_make_basic(MOD_MASK_CS, LT_BSPC, LCTL(LSFT(KC_TAB)));
-const key_override_t override_SGTAB = ko_make_basic(MOD_MASK_SG, LT_BSPC, LGUI(LSFT(KC_TAB)));
-const key_override_t override_SATAB = ko_make_basic(MOD_MASK_SA, LT_BSPC, LALT(LSFT(KC_TAB)));
+const key_override_t override_CSTAB = ko_make_basic(MOD_MASK_CS, LT_ENT, LCTL(LSFT(KC_TAB)));
+const key_override_t override_SGTAB = ko_make_basic(MOD_MASK_SG, LT_ENT, LGUI(LSFT(KC_TAB)));
+const key_override_t override_SATAB = ko_make_basic(MOD_MASK_SA, LT_ENT, LALT(LSFT(KC_TAB)));
 
-const key_override_t override_TAB = ko_make_basic(MOD_MASK_SHIFT, LT_SPC, LT(2,KC_TAB));
+const key_override_t override_TAB = ko_make_basic(MOD_MASK_SHIFT, LT_ESC, LT(2,KC_TAB));
 const key_override_t override_DEL = ko_make_basic(MOD_MASK_SHIFT, LT_BSPC, LT(1,KC_DEL));
 
 const key_override_t override_0 = ko_make_basic(MOD_MASK_SHIFT, MOD_0, MOD_0);
@@ -79,7 +99,7 @@ const key_override_t override_SLSH = ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_S
 
 const key_override_t *key_overrides[] = {
     &override_CSTAB, &override_SGTAB, &override_SATAB,
-    &override_TAB, &override_DEL, 
+    &override_TAB, &override_DEL,
     &override_0, &override_1, &override_2, &override_3, &override_4, &override_5, &override_6, &override_7, &override_8, &override_9, 
     &override_MINS,
     &override_EQL,
@@ -241,6 +261,16 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
 
+// Hold on other keypress (just for the backspace)
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT_BSPC:
+            return true;
+        default:
+            return false;
+    }
+}
+
 // Layouts
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Alpha
@@ -252,19 +282,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // Number
-    [1] = LAYOUT_split_3x5_3(
-        KC_NO,            KC_7,           KC_8,            KC_9,            KC_NO,KC_NO,    LSFT(KC_SCLN),   KC_SCLN,         KC_QUOT,          KC_GRV,
-        MOD_0,            MOD_4,            MOD_5,            MOD_6,            KC_NO,KC_NO,    MOD_DOT,         KC_COMM,         LSFT(KC_QUOT),    LSFT(KC_MINS),
-        KC_BSPC,            KC_1,           KC_2,            KC_3,            KC_NO,KC_NO,    KC_EQL,          LSFT(KC_EQL),    KC_MINS,          LSFT(KC_GRV),
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+    [2] = LAYOUT_split_3x5_3(
+        KC_NO,            KC_7,           KC_8,            KC_9,            KC_NO,KC_NO,    LSFT(KC_7),      LSFT(KC_BSLS),   LSFT(KC_4),       KC_NO,
+        MOD_0,            MOD_4,            MOD_5,            MOD_6,            KC_NO,KC_NO,LSFT(KC_1),       LSFT(KC_SLSH),  LSFT(KC_3),   LSFT(KC_2),
+        KC_SPC,            KC_1,           KC_2,            KC_3,            KC_NO,KC_NO,   LSFT(KC_8),      LSFT(KC_6),      LSFT(KC_5),       KC_SPC,
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Symbol
-    [2] = LAYOUT_split_3x5_3(
-        KC_NO,            KC_SLSH,        LSFT(KC_LBRC),   LSFT(KC_RBRC),   KC_NO,KC_NO,    LSFT(KC_7),      LSFT(KC_BSLS),   LSFT(KC_4),       KC_NO,
-        LSFT(KC_COMM),    LSFT(KC_DOT),   LSFT(KC_9),      LSFT(KC_0),      KC_NO,KC_NO,    LSFT(KC_1),      LSFT(KC_SLSH),       LSFT(KC_3),   LSFT(KC_2),
-        KC_SPC,            KC_BSLS,        KC_LBRC,         KC_RBRC,         KC_NO,KC_NO,    LSFT(KC_8),      LSFT(KC_6),      LSFT(KC_5),       KC_NO,
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+    [1] = LAYOUT_split_3x5_3(
+        KC_NO,            KC_SLSH,        LSFT(KC_LBRC),   LSFT(KC_RBRC),   KC_NO,KC_NO,    LSFT(KC_SCLN),   KC_SCLN,         KC_QUOT,          KC_GRV,
+        LSFT(KC_COMM),    LSFT(KC_DOT),   LSFT(KC_9),      LSFT(KC_0),      KC_NO,KC_NO,    MOD_DOT,         MOD_COMM,         LSFT(KC_QUOT),    LSFT(KC_MINS),
+        KC_BSPC,            KC_BSLS,        KC_LBRC,         KC_RBRC,         KC_NO,KC_NO,    KC_EQL,          LSFT(KC_EQL),    KC_MINS,        LSFT(KC_GRV),
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Mouse
@@ -272,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,            MKC_CUT,        MKC_COPY,        MKC_PASTE,       KC_NO,KC_NO,    MKC_PASTE,       MKC_COPY,        MKC_CUT,       KC_NO,
         KC_NO,         MS_BTN3,         MS_BTN2,         MS_BTN1,         KC_NO,KC_NO,    MS_BTN1,         MS_BTN2,         MS_BTN3,       KC_NO,
         MS_LEFT,          MS_DOWN,        MS_UP,           MS_RGHT,         KC_NO,KC_NO,    MS_LEFT,         MS_DOWN,         MS_UP,         MS_RGHT,
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Editing
@@ -280,7 +310,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,            MKC_CUT,            MKC_COPY,            MKC_PASTE,            KC_NO,KC_NO,    MKC_PASTE,            MKC_COPY,            MKC_CUT,            KC_NO,
         KC_LALT,          KC_LGUI,          KC_LSFT,          KC_LCTL,          KC_NO,KC_NO,    KC_LEFT,              KC_DOWN,          KC_UP,          KC_RIGHT,
         KC_NO,            KC_NO,            MKC_REDO,            MKC_UNDO,            KC_NO,KC_NO,    MKC_UNDO,            MKC_REDO,         KC_NO,          KC_NO,
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Media
@@ -288,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,            KC_NO,            KC_NO,            KC_NO,        KC_NO,KC_NO,    KC_NO,       KC_NO,            KC_NO,            KC_NO,
         KC_NO,            KC_BRID,           KC_BRIU,          KC_NO,        KC_NO,KC_NO,    KC_MUTE,     KC_VOLD,          KC_VOLU,          KC_NO,
         KC_NO,            KC_NO,            KC_NO,            KC_NO,        KC_NO,KC_NO,    KC_NO,       KC_NO,            KC_NO,            KC_NO,
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Function
@@ -296,33 +326,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,            KC_F9,            KC_F10,           KC_NO,        KC_NO,KC_NO,    KC_NO,       KC_F11,           KC_F12,           KC_NO,
         KC_F1,            KC_F2,            KC_F3,            KC_F4,        KC_NO,KC_NO,    KC_F5,       KC_F6,            KC_F7,            KC_F8,
         KC_NO,            KC_NO,            KC_NO,            KC_NO,        KC_NO,KC_NO,    KC_NO,       KC_NO,            KC_NO,            KC_NO,
-                                          LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
 
     // Gaming 1
     [7] = LAYOUT_split_3x5_3(
-        KC_B,            KC_Y,            KC_O,            KC_U,            KC_NO,KC_NO,    KC_L,            KC_D,            KC_W,            KC_V,
-        LALT_T(KC_C),    LGUI_T(KC_I),    LSFT_T(KC_E),    LCTL_T(KC_A),    KC_NO,KC_NO,    RCTL_T(KC_H),    RSFT_T(KC_T),    RGUI_T(KC_S),    RALT_T(KC_N),
-        KC_G,            KC_X,            KC_J,            KC_K,            KC_NO,KC_NO,    KC_R,            KC_M,         KC_F,          KC_P,
-                                          LT(3,KC_ESC),    LT(2,KC_SPC),    KC_NO,KC_NO,    LT(1,KC_BSPC),   LT(4,KC_ENT)
+        KC_TAB,            KC_Q,            KC_R,            KC_E,            KC_NO,KC_NO,    KC_L,    KC_NO,           KC_W,           KC_NO,
+        KC_LSFT,           KC_A,            KC_W,            KC_D,            KC_NO,KC_NO,    KC_LEFT,    KC_UP,           KC_RIGHT,           KC_NO,
+        KC_LCTL,            KC_Z,            KC_S,            KC_C,           KC_NO,KC_NO,    KC_NO,    KC_DOWN,           KC_NO,           KC_NO,
+                                          GM_ESC,          KC_SPC,          KC_NO,KC_NO,    KC_BSPC,         KC_ENT 
     ),
 
     // Gaming 2
     [8] = LAYOUT_split_3x5_3(
-        KC_B,            KC_Y,            KC_O,            KC_U,            KC_NO,KC_NO,    KC_L,            KC_D,            KC_W,            KC_V,
-        LALT_T(KC_C),    LGUI_T(KC_I),    LSFT_T(KC_E),    LCTL_T(KC_A),    KC_NO,KC_NO,    RCTL_T(KC_H),    RSFT_T(KC_T),    RGUI_T(KC_S),    RALT_T(KC_N),
-        KC_G,            KC_X,            KC_J,            KC_K,            KC_NO,KC_NO,    KC_R,            KC_M,         KC_F,          KC_P,
-                                          LT(3,KC_ESC),    LT(2,KC_SPC),    KC_NO,KC_NO,    LT(1,KC_BSPC),   LT(4,KC_ENT)
+        KC_F,            KC_7,            KC_8,            KC_9,            KC_NO,KC_NO,    KC_NO,    KC_NO,           KC_NO,           KC_NO,
+        KC_0,           KC_4,            KC_5,            KC_6,            KC_NO,KC_NO,    KC_LEFT,    KC_UP,           KC_RIGHT,           KC_NO,
+        KC_G,            KC_1,            KC_2,            KC_3,           KC_NO,KC_NO,    KC_NO,    KC_DOWN,           KC_NO,           KC_NO,
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
     ),
 
     // Roguelike
     [9] = LAYOUT_split_3x5_3(
+        KC_F,            KC_7,           KC_8,            KC_9,            KC_NO,KC_NO,    KC_Y,            KC_U,            LSFT(KC_COMM),    LSFT(KC_DOT),
+        KC_0,            KC_4,            KC_5,            KC_6,            KC_NO,KC_NO,    KC_H,            KC_J,            KC_K,            KC_L,
+        KC_G,            KC_1,           KC_2,            KC_3,            KC_NO,KC_NO,   KC_B,            KC_N,            KC_DOT,            KC_I,
+                                          RL_ESC,          RL_SPC,          KC_NO,KC_NO,    RL_BSPC,         RL_ENT 
+    ),
+
+    // Roguelike 2 (Alpha)
+    [10] = LAYOUT_split_3x5_3(
         KC_B,            KC_Y,            KC_O,            KC_U,            KC_NO,KC_NO,    KC_L,            KC_D,            KC_W,            KC_V,
-        LALT_T(KC_C),    LGUI_T(KC_I),    LSFT_T(KC_E),    LCTL_T(KC_A),    KC_NO,KC_NO,    RCTL_T(KC_H),    RSFT_T(KC_T),    RGUI_T(KC_S),    RALT_T(KC_N),
+        MOD_C,            MOD_I,            MOD_E,            MOD_A,            KC_NO,KC_NO,    MOD_H,           MOD_T,           MOD_S,           MOD_N,
         KC_G,            KC_X,            KC_J,            KC_K,            KC_NO,KC_NO,    KC_R,            KC_M,         KC_F,          KC_P,
-                                          LT(3,KC_ESC),    LT(2,KC_SPC),    KC_NO,KC_NO,    LT(1,KC_BSPC),   LT(4,KC_ENT)
-    )
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
+    ),
+
+    // Roguelike 3 (Number)
+    [11] = LAYOUT_split_3x5_3(
+        KC_NO,            KC_7,           KC_8,            KC_9,            KC_NO,KC_NO,    LSFT(KC_7),      LSFT(KC_BSLS),   LSFT(KC_4),       KC_NO,
+        MOD_0,            MOD_4,            MOD_5,            MOD_6,            KC_NO,KC_NO,LSFT(KC_1),       LSFT(KC_SLSH),  LSFT(KC_3),   LSFT(KC_2),
+        KC_SPC,            KC_1,           KC_2,            KC_3,            KC_NO,KC_NO,   LSFT(KC_8),      LSFT(KC_6),      LSFT(KC_5),       KC_SPC,
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
+    ),
+
+    // Roguelike 4 (Symbol)
+    [12] = LAYOUT_split_3x5_3(
+        KC_NO,            KC_SLSH,        LSFT(KC_LBRC),   LSFT(KC_RBRC),   KC_NO,KC_NO,    LSFT(KC_SCLN),   KC_SCLN,         KC_QUOT,          KC_GRV,
+        LSFT(KC_COMM),    LSFT(KC_DOT),   LSFT(KC_9),      LSFT(KC_0),      KC_NO,KC_NO,    MOD_DOT,         MOD_COMM,         LSFT(KC_QUOT),    LSFT(KC_MINS),
+        KC_BSPC,            KC_BSLS,        KC_LBRC,         KC_RBRC,         KC_NO,KC_NO,    KC_EQL,          LSFT(KC_EQL),    KC_MINS,        LSFT(KC_GRV),
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
+    ),
+
+    // Roguelike 5 (Editing)
+    [13] = LAYOUT_split_3x5_3(
+        KC_NO,            MKC_CUT,            MKC_COPY,            MKC_PASTE,            KC_NO,KC_NO,    MKC_PASTE,            MKC_COPY,            MKC_CUT,            KC_NO,
+        KC_LALT,          KC_LGUI,          KC_LSFT,          KC_LCTL,          KC_NO,KC_NO,    KC_LEFT,              KC_DOWN,          KC_UP,          KC_RIGHT,
+        KC_NO,            KC_NO,            MKC_REDO,            MKC_UNDO,            KC_NO,KC_NO,    MKC_UNDO,            MKC_REDO,         KC_NO,          KC_NO,
+                                          KC_TRNS,          KC_TRNS,          KC_NO,KC_NO,    KC_TRNS,         KC_TRNS 
+    ),
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
