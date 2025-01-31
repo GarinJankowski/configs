@@ -13,7 +13,7 @@
 #define LT_BSPC LT(1,KC_BSPC)
 #define LT_ENT LT(4,KC_ENT)
 
-// home rows
+// mods
 #define MOD_C LALT_T(KC_C)
 #define MOD_I LGUI_T(KC_I)
 #define MOD_E LSFT_T(KC_E)
@@ -23,6 +23,11 @@
 #define MOD_T RSFT_T(KC_T)
 #define MOD_S RGUI_T(KC_S)
 #define MOD_N RALT_T(KC_N)
+
+#define MOD_O MT(MOD_LGUI | MOD_LSFT, KC_O)
+#define MOD_U MT(MOD_LCTL | MOD_LSFT, KC_U)
+#define MOD_L MT(MOD_RCTL | MOD_RSFT, KC_L)
+#define MOD_D MT(MOD_RGUI | MOD_RSFT, KC_D)
 
 #define MOD_0 LALT_T(KC_0)
 #define MOD_4 LGUI_T(KC_4)
@@ -40,20 +45,20 @@
 #define RL_ENT LT(13,KC_ENT)
 
 // Combos
-const uint16_t PROGMEM combo_Q[] = {MOD_E, MOD_I, COMBO_END};
+const uint16_t PROGMEM combo_Q[] = {MOD_H, MOD_T, COMBO_END};
 const uint16_t PROGMEM combo_Z[] = {MOD_T, MOD_S, COMBO_END};
 const uint16_t PROGMEM combo_REP[] = {KC_R, KC_M, COMBO_END};
 const uint16_t PROGMEM combo_CW[] = {MOD_A, MOD_H, COMBO_END};
 const uint16_t PROGMEM combo_MEDIA[] = {LT_SPC, LT_BSPC, COMBO_END};
 const uint16_t PROGMEM combo_FUNCTION[] = {LT_ESC, LT_ENT, COMBO_END};
 
-const uint16_t PROGMEM combo_GAMING[] = {KC_Y, KC_U, KC_L, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_GAMING[] = {KC_Y, MOD_U, MOD_L, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_GAMINGBACK[] = {KC_Q, KC_E, KC_L, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_ROGUELIKE[] = {KC_X, KC_K, KC_R, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_ROGUELIKEBACK[] = {KC_1, KC_3, KC_B, KC_DOT, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(combo_Q, MT(MOD_LSFT | MOD_LGUI, KC_Q)),
+    COMBO(combo_Q, MT(MOD_RCTL | MOD_RSFT, KC_Q)),
     COMBO(combo_Z, MT(MOD_RSFT | MOD_RGUI, KC_Z)),
     COMBO(combo_REP, QK_REP),
     COMBO(combo_CW, CW_TOGG),
@@ -275,7 +280,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Alpha
     [0] = LAYOUT_split_3x5_3(
-        KC_B,            KC_Y,            KC_O,            KC_U,            KC_NO,KC_NO,    KC_L,            KC_D,            KC_W,            KC_V,
+        KC_B,            KC_Y,            MOD_O,            MOD_U,            KC_NO,KC_NO,    MOD_L,            MOD_D,            KC_W,            KC_V,
         MOD_C,            MOD_I,            MOD_E,            MOD_A,            KC_NO,KC_NO,    MOD_H,           MOD_T,           MOD_S,           MOD_N,
         KC_G,            KC_X,            KC_J,            KC_K,            KC_NO,KC_NO,    KC_R,            KC_M,         KC_F,          KC_P,
                                           LT_ESC,          LT_SPC,          KC_NO,KC_NO,    LT_BSPC,         LT_ENT 
