@@ -28,9 +28,11 @@
 
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
-#define COMBO_TERM 30
+//#define COMBO_TERM 200
+#define COMBO_TERM 50
+// #define HOLD_ON_OTHER_KEY_PRESS
 #define PERMISSIVE_HOLD
-
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define WS2812_DI_PIN GP16 // The pin connected to the data pin of the LEDs
 #define RGBLIGHT_LED_COUNT 1                     // The number of LEDs connected
