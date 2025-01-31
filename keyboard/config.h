@@ -29,7 +29,7 @@
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 200
 //#define COMBO_TERM 200
-#define COMBO_TERM 50
+#define COMBO_TERM 40
 // #define HOLD_ON_OTHER_KEY_PRESS
 #define PERMISSIVE_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
