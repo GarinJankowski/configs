@@ -30,3 +30,6 @@ set ignorecase
 set smartcase
 set showmatch
 colorscheme sorbet
+
+hi StatusLine ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+hi StatusLineNC ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
