@@ -1,12 +1,6 @@
 ## Chocolate: A colorscheme for night dwellers
 
-Original link: https://gitlab.com/snakedye/chocolate/-/blob/master/README.md?ref_type=heads&plain=1
-
-This started as an attemp to correct what I perceived as flaws of gruvbox being 
-high constrast and incrongruent colors.
-
-The primary goal of chocolate is to provide a comforting reading and editing experience
-while still being relatively eye catching.
+by Bryan: https://gitlab.com/snakedye/chocolate/-/blob/master/README.md?ref_type=heads&plain=1
 
 ### COLORS
 <hr>
