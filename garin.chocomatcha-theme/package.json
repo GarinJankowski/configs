@@ -1,0 +1,22 @@
+{
+  "name": "chocomatcha-theme",
+  "displayName": "Chocolate Matcha Theme",
+  "description": "A custom dark theme with earthy tones.",
+  "version": "0.0.1",
+  "publisher": "Garin",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Chocolate Matcha",
+        "uiTheme": "vs-dark",
+        "path": "./themes/chocomatcha-theme.json"
+      }
+    ]
+  }
+}
