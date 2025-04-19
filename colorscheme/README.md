@@ -63,7 +63,7 @@ by Bryan: https://gitlab.com/snakedye/chocolate/-/blob/master/README.md?ref_type
 
 |	accents	|	code	|
 |-----------|-----------|
-|	bg		|	202721	|
+|	bg		|	222523	|
 |	fg		|	D1D6BC	|
 |	cursor		|	D1D6BC	|
 |	black1		|	202721	|
