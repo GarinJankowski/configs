@@ -56,3 +56,23 @@ by Bryan: https://gitlab.com/snakedye/chocolate/-/blob/master/README.md?ref_type
 ### Example
 
 ![desktop](./desktop.png)
+
+
+### GREEN VERSION
+<hr>
+
+|	accents	|	code	|
+|-----------|-----------|
+|	bg		|	202721	|
+|	fg		|	D1D6BC	|
+|	cursor		|	D1D6BC	|
+|	black1		|	202721	|
+|	black2		|	475249	|
+|	red		|	ad7d49	|
+|	green		|	7caa80	|
+|	yellow		|	cbb871	|
+|	blue		|	558b8b	|
+|	magenta		|	878399	|
+|	cyan		|	7fa294	|
+|	white1		|	D1D6BC	|
+|	white2		|	E0E6CA	|
